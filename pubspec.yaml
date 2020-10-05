@@ -1,0 +1,60 @@
+name: bold_app
+description: A new Flutter project.
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  circular_profile_avatar: 
+  flutter_icons: 
+  md2_tab_indicator: 
+  video_player:
+  date_picker_timeline:
+  flutter_cupertino_date_picker: 
+  charts_flutter: 
+  flutter_svg: ^0.18.0
+  path_provider: ^1.6.18
+
+  
+
+
+
+  cupertino_icons:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons:
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/icon/movie-icon.png"
+  adaptive_icon_background: "assets/icon/movie-icon.png"
+
+flutter:
+
+  uses-material-design: true
+
+
+  assets:
+   - assets/photos/
+   - assets/images/
+
+
+  fonts:
+    - family: Avenir Regular
+      fonts:
+        - asset: fonts/Avenir_Regular.ttf
+    - family: Avenir Light
+      fonts:
+        - asset: fonts/Avenir_Light.ttf
+    - family: Avenir Bold
+      fonts:
+        - asset: fonts/Avenir_Bold.ttf
+
