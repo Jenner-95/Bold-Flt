@@ -65,28 +65,7 @@ class _SignInState extends State<SignIn> {
                         SizedBox(
                           height: 50.0,
                         ),
-                        ButtonTheme(
-                          minWidth: 370.0,
-                          height: 50.0,
-                          child: RaisedButton(
-                            elevation: 5,
-                            textColor: Colors.black,
-                            color: primaryColor,
-                            padding: EdgeInsets.all(8.0),
-                            onPressed: () =>
-                                Navigator.pushNamed(context, 'register'),
-                            child: Text(
-                              'Sign In',
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontFamily: 'Avenir Regular',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                          ),
-                        ),
+                        _crearBoton(bloc),
                       ],
                     ),
                   ),
@@ -110,6 +89,7 @@ Widget _crearEmail(LoginBloc bloc) {
         decoration: InputDecoration(
           counterText: snapshot.data,
           labelText: 'e-mail',
+          errorText: snapshot.error,
           hintStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
@@ -136,6 +116,7 @@ Widget _crearPassword(LoginBloc bloc) {
           decoration: InputDecoration(
             counterText: snapshot.data,
             labelText: 'Password',
+            errorText: snapshot.data,
             hintStyle: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -152,4 +133,41 @@ Widget _crearPassword(LoginBloc bloc) {
       );
     },
   );
+}
+
+Widget _crearBoton(LoginBloc bloc) {
+  return StreamBuilder(
+    stream: bloc.formValidStream,
+    builder: (BuildContext context, AsyncSnapshot snapshot) {
+      return ButtonTheme(
+        minWidth: 370.0,
+        height: 50.0,
+        child: RaisedButton(
+          elevation: 5,
+          textColor: Colors.black,
+          color: primaryColor,
+          padding: EdgeInsets.all(8.0),
+          onPressed: snapshot.hasData ? () => _login(bloc) : null,
+          // onPressed: () => Navigator.pushNamed(context, 'register'),
+          child: Text(
+            'Sign In',
+            style: TextStyle(
+              fontSize: 15.0,
+              fontFamily: 'Avenir Regular',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        ),
+      );
+    },
+  );
+}
+
+_login(LoginBloc bloc) {
+  print('*************');
+  print('Email: ${bloc.email}');
+  print('Email: ${bloc.password}');
+  print('*************');
 }

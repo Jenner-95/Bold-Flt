@@ -3,9 +3,17 @@ import 'package:bold_app/src/bloc/login_bloc.dart';
 export 'package:bold_app/src/bloc/login_bloc.dart';
 
 class Provider extends InheritedWidget {
-  final loginBloc = LoginBloc();
+  static Provider _instancia;
 
-  Provider({Key key, Widget child}) : super(key: key, child: child);
+  factory Provider() {
+    if (_instancia == null) {
+      _instancia = new Provider._internal();
+    }
+  }
+
+  Provider._internal({Key key, Widget child}) : super(key: key, child: child);
+
+  final loginBloc = LoginBloc();
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;

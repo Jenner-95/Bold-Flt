@@ -19,6 +19,8 @@ dependencies:
   charts_flutter: 
   flutter_svg: ^0.18.0
   path_provider: ^1.6.18
+  rxdart: ^0.24.1
+
 
   
 
