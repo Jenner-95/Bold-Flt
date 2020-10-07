@@ -14,7 +14,7 @@ class LoginBloc with Validators {
       _passwordController.stream.transform(validarPassword);
 
   Stream<bool> get formValidStream =>
-      Rx.combineLatest2(emailStream, passwStream, (e, p) => true);
+      Rx.combineLatest2(emailStream, passwordStream, (e, p) => true);
 
   //Insertar valores al stream
   Function(String) get changeEmail => _emailController.sink.add;

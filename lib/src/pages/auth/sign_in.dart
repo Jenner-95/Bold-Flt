@@ -1,3 +1,4 @@
+import 'package:bold_app/src/providers/user_provider.dart';
 import 'package:bold_app/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +13,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
+    final userProvider = new UserProvider();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -147,7 +149,7 @@ Widget _crearBoton(LoginBloc bloc) {
           textColor: Colors.black,
           color: primaryColor,
           padding: EdgeInsets.all(8.0),
-          onPressed: snapshot.hasData ? () => _login(bloc) : null,
+          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
           // onPressed: () => Navigator.pushNamed(context, 'register'),
           child: Text(
             'Sign In',
@@ -165,9 +167,7 @@ Widget _crearBoton(LoginBloc bloc) {
   );
 }
 
-_login(LoginBloc bloc) {
-  print('*************');
-  print('Email: ${bloc.email}');
-  print('Email: ${bloc.password}');
-  print('*************');
+_login(LoginBloc bloc, BuildContext context) {
+  final userProvider = new UserProvider();
+  userProvider.login(bloc.email, bloc.password);
 }
