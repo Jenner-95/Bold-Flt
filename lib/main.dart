@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bold_app/src/bloc/provider.dart';
+import 'package:bold_app/src/preferences/user_preferences.dart';
 import 'package:bold_app/src/pages/auth/splash_screen.dart';
 import 'package:bold_app/src/pages/challenges/detail_challenge.dart';
 import 'package:bold_app/src/pages/home/detail_meal.dart';
@@ -13,11 +14,20 @@ import 'package:bold_app/src/pages/auth/register.dart';
 import 'package:bold_app/src/pages/auth/register_two.dart';
 import 'package:bold_app/src/pages/auth/register_three.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = new UserPreferences();
+  await prefs.initPrefs();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final prefs = new UserPreferences();
+    print(prefs.token);
+    print('token');
+
     return Provider(
       child: MaterialApp(
         theme: ThemeData(

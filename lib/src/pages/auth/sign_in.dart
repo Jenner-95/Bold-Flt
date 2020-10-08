@@ -1,5 +1,6 @@
 import 'package:bold_app/src/providers/user_provider.dart';
 import 'package:bold_app/src/utilities/constants.dart';
+import 'package:bold_app/src/utilities/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bold_app/src/bloc/provider.dart';
@@ -67,7 +68,7 @@ class _SignInState extends State<SignIn> {
                         SizedBox(
                           height: 50.0,
                         ),
-                        _crearBoton(bloc),
+                        _crearBoton(bloc, userProvider),
                       ],
                     ),
                   ),
@@ -118,7 +119,7 @@ Widget _crearPassword(LoginBloc bloc) {
           decoration: InputDecoration(
             counterText: snapshot.data,
             labelText: 'Password',
-            errorText: snapshot.data,
+            errorText: snapshot.error,
             hintStyle: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -137,7 +138,7 @@ Widget _crearPassword(LoginBloc bloc) {
   );
 }
 
-Widget _crearBoton(LoginBloc bloc) {
+Widget _crearBoton(LoginBloc bloc, UserProvider user) {
   return StreamBuilder(
     stream: bloc.formValidStream,
     builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -149,7 +150,9 @@ Widget _crearBoton(LoginBloc bloc) {
           textColor: Colors.black,
           color: primaryColor,
           padding: EdgeInsets.all(8.0),
-          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
+          // onPressed: () => _login(bloc, context),
+          onPressed:
+              snapshot.hasData ? () => _login(bloc, context, user) : null,
           // onPressed: () => Navigator.pushNamed(context, 'register'),
           child: Text(
             'Sign In',
@@ -167,7 +170,11 @@ Widget _crearBoton(LoginBloc bloc) {
   );
 }
 
-_login(LoginBloc bloc, BuildContext context) {
-  final userProvider = new UserProvider();
-  userProvider.login(bloc.email, bloc.password);
+_login(LoginBloc bloc, BuildContext context, UserProvider user) async {
+  Map info = await user.login(bloc.email, bloc.password);
+  if (info['ok']) {
+    Navigator.pushReplacementNamed(context, 'home_page');
+  } else {
+    mostrarAlerta(context, 'Error, Intente de nuevo');
+  }
 }
