@@ -1,9 +1,13 @@
+import 'package:bold_app/src/preferences/user_preferences.dart';
 import 'package:bold_app/src/providers/user_provider.dart';
 import 'package:bold_app/src/utilities/constants.dart';
+import 'package:bold_app/src/utilities/url_api.dart';
 import 'package:bold_app/src/utilities/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bold_app/src/bloc/provider.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class SignIn extends StatefulWidget {
   @override
@@ -14,7 +18,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
-    final userProvider = new UserProvider();
+    // final userProvider = new UserProvider();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -68,7 +72,7 @@ class _SignInState extends State<SignIn> {
                         SizedBox(
                           height: 50.0,
                         ),
-                        _crearBoton(bloc, userProvider),
+                        _crearBoton(bloc),
                       ],
                     ),
                   ),
@@ -138,7 +142,7 @@ Widget _crearPassword(LoginBloc bloc) {
   );
 }
 
-Widget _crearBoton(LoginBloc bloc, UserProvider user) {
+Widget _crearBoton(LoginBloc bloc) {
   return StreamBuilder(
     stream: bloc.formValidStream,
     builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -151,8 +155,7 @@ Widget _crearBoton(LoginBloc bloc, UserProvider user) {
           color: primaryColor,
           padding: EdgeInsets.all(8.0),
           // onPressed: () => _login(bloc, context),
-          onPressed:
-              snapshot.hasData ? () => _login(bloc, context, user) : null,
+          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
           // onPressed: () => Navigator.pushNamed(context, 'register'),
           child: Text(
             'Sign In',
@@ -170,11 +173,27 @@ Widget _crearBoton(LoginBloc bloc, UserProvider user) {
   );
 }
 
-_login(LoginBloc bloc, BuildContext context, UserProvider user) async {
-  Map info = await user.login(bloc.email, bloc.password);
-  if (info['ok']) {
-    Navigator.pushReplacementNamed(context, 'home_page');
-  } else {
-    mostrarAlerta(context, 'Error, Intente de nuevo');
-  }
+_login(LoginBloc bloc, BuildContext context) async {
+  final _prefs = new UserPreferences();
+  await http.post(
+    URL.base + 'api/user/token/',
+    // headers: {"Content-Type": "application/json"},
+    body: {
+      'email': bloc.email,
+      'password': bloc.password,
+    },
+  ).then((resp) {
+    Map<String, dynamic> decodedResp = json.decode(resp.body);
+    if (resp.statusCode == 200) {
+      print(resp.statusCode);
+      if (decodedResp.containsKey('jwt')) {
+        print(decodedResp['jwt']);
+        _prefs.token = decodedResp['jwt'];
+        print(_prefs.token);
+        Navigator.pushReplacementNamed(context, 'home_page');
+      } else {
+        mostrarAlerta(context, 'Error, Intente de nuevo');
+      }
+    }
+  });
 }
