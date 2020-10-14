@@ -1,3 +1,4 @@
+import 'package:bold_app/src/widgets/buttons_selected.dart';
 import 'package:flutter/material.dart';
 import 'package:bold_app/src/bloc/provider.dart';
 import 'package:bold_app/src/preferences/user_preferences.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
         routes: {
           'splash_screen': (BuildContext context) => SplashScreen(),
           'sign_in': (BuildContext context) => SignIn(),
-          'register': (BuildContext context) => RegisterForm(),
+          'register': (BuildContext context) => ButtonWidget(),
           'register_two': (BuildContext context) => RegisterForm2(),
           'register_three': (BuildContext context) => RegisterForm3(),
           'tabbar': (BuildContext context) => TabsPage(),

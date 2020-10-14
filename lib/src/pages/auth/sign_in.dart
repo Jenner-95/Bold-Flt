@@ -1,5 +1,4 @@
 import 'package:bold_app/src/preferences/user_preferences.dart';
-import 'package:bold_app/src/providers/user_provider.dart';
 import 'package:bold_app/src/utilities/constants.dart';
 import 'package:bold_app/src/utilities/url_api.dart';
 import 'package:bold_app/src/utilities/utils.dart';

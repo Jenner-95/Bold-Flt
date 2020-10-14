@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  circular_profile_avatar: 
-  flutter_icons: 
+  # circular_profile_avatar: 
+  # flutter_icons: 
   md2_tab_indicator: 
   video_player:
   date_picker_timeline:
@@ -21,6 +21,10 @@ dependencies:
   path_provider: ^1.6.18
   rxdart: ^0.24.1
   shared_preferences:
+  smart_select: ^4.2.1
+  http: ^0.12.2
+
+
 
 
   

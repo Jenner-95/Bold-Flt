@@ -1,5 +1,7 @@
 import 'package:bold_app/src/utilities/constants.dart';
+import 'package:bold_app/src/widgets/buttons_selected.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_select/smart_select.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -84,67 +86,69 @@ class _RegisterFormState extends State<RegisterForm> {
                     spacing: 20.0,
                     direction: Axis.horizontal,
                     children: <Widget>[
-                      ButtonTheme(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        minWidth: 100.0,
-                        height: 100.0,
-                        child: RaisedButton(
-                          onPressed: () {},
-                          color: Color(0xff1a1a1b),
-                          child: Text(
-                            'Free',
-                            style: TextStyle(
-                              fontFamily: 'Avenir Bold',
-                              color: Colors.white,
-                              fontSize: 20.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      ButtonTheme(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        minWidth: 100.0,
-                        height: 100,
-                        child: RaisedButton(
-                          onPressed: () {},
-                          color: Color(0xff9cc6e8),
-                          child: RichText(
-                              textAlign: TextAlign.left,
-                              text: TextSpan(
-                                  style: TextStyle(
-                                    fontFamily: 'Avenir Bold',
-                                    fontSize: 20.0,
-                                    color: Colors.white,
-                                  ),
-                                  children: <TextSpan>[
-                                    TextSpan(text: 'Go\n'),
-                                    TextSpan(text: 'Pro       ')
-                                  ])),
-                        ),
-                      ),
-                      ButtonTheme(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        minWidth: 100.0,
-                        height: 100.0,
-                        child: RaisedButton(
-                          onPressed: () {},
-                          color: Color(0xff43444c),
-                          child: RichText(
-                              text: TextSpan(
-                                  style: TextStyle(
-                                    fontFamily: 'Avenir Bold',
-                                    fontSize: 20.0,
-                                    color: Colors.white,
-                                  ),
-                                  children: <TextSpan>[
-                                TextSpan(text: 'Full\n'),
-                                TextSpan(text: 'Fitness')
-                              ])),
-                        ),
-                      ),
+                      ButtonWidget(),
+
+                      // ButtonTheme(
+                      //   shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(10.0)),
+                      //   minWidth: 100.0,
+                      //   height: 100.0,
+                      //   child: RaisedButton(
+                      //     onPressed: () {},
+                      //     color: Color(0xff1a1a1b),
+                      //     child: Text(
+                      //       'Free',
+                      //       style: TextStyle(
+                      //         fontFamily: 'Avenir Bold',
+                      //         color: Colors.white,
+                      //         fontSize: 20.0,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // ButtonTheme(
+                      //   shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(10.0)),
+                      //   minWidth: 100.0,
+                      //   height: 100,
+                      //   child: RaisedButton(
+                      //     onPressed: () {},
+                      //     color: Color(0xff9cc6e8),
+                      //     child: RichText(
+                      //         textAlign: TextAlign.left,
+                      //         text: TextSpan(
+                      //             style: TextStyle(
+                      //               fontFamily: 'Avenir Bold',
+                      //               fontSize: 20.0,
+                      //               color: Colors.white,
+                      //             ),
+                      //             children: <TextSpan>[
+                      //               TextSpan(text: 'Go\n'),
+                      //               TextSpan(text: 'Pro       ')
+                      //             ])),
+                      //   ),
+                      // ),
+                      // ButtonTheme(
+                      //   shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(10.0)),
+                      //   minWidth: 100.0,
+                      //   height: 100.0,
+                      //   child: RaisedButton(
+                      //     onPressed: () {},
+                      //     color: Color(0xff43444c),
+                      //     child: RichText(
+                      //         text: TextSpan(
+                      //             style: TextStyle(
+                      //               fontFamily: 'Avenir Bold',
+                      //               fontSize: 20.0,
+                      //               color: Colors.white,
+                      //             ),
+                      //             children: <TextSpan>[
+                      //           TextSpan(text: 'Full\n'),
+                      //           TextSpan(text: 'Fitness')
+                      //         ])),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],
