@@ -15,6 +15,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
     LisTile(5, "Increase Flexibility", "Improve posture & balance"),
     LisTile(6, "Get Healthy", "Get motivated & Feel better"),
   ];
+  int selected;
 
   @override
   Widget build(BuildContext context) {
@@ -46,71 +47,48 @@ class _RegisterForm3State extends State<RegisterForm3> {
                   physics: BouncingScrollPhysics(),
                   itemCount: this.items.length,
                   itemBuilder: (BuildContext context, int index) {
-                    // children: <Widget>[
-                    // SizedBox(height: 20.0)
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          // _isDark = !_isDark;
-                          items[index].selected = !items[index].selected;
-                          // print(items[index].title);
-                        });
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 80,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                            color: items[index].selected
-                                ? Color(0xff43444c)
-                                : Colors.white,
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                offset: Offset(4, 6),
-                                blurRadius: 10,
-                              )
-                            ],
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10.0),
+                      child: ChoiceChip(
+                        elevation: 3,
+                        selectedColor: Colors.white,
+                        backgroundColor: Color(0xff43444c),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 20.0),
+                        shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(left: 25.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Text(
-                                    items[index].title,
-                                    style: TextStyle(
-                                        fontFamily: 'Avenir Regular',
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: items[index].selected
-                                            ? Colors.white
-                                            : Color(0xff1a1a1b)),
-                                  ),
-                                ],
-                              ),
+                        label: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              items[index].title,
+                              style: TextStyle(
+                                  fontFamily: 'Avenir Regular',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: items[index].id != selected
+                                      ? Colors.white
+                                      : Color(0xff1a1a1b)),
                             ),
-                            SizedBox(height: 3.0),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 25.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Text(items[index].subtitle,
-                                      style: TextStyle(
-                                          fontFamily: 'Avenir Regular',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color: items[index].selected
-                                              ? primaryColor
-                                              : Color(0xff9cc6e8)))
-                                ],
-                              ),
-                            ),
+                            Text(items[index].subtitle,
+                                style: TextStyle(
+                                    fontFamily: 'Avenir Regular',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                    color: items[index].id != selected
+                                        ? primaryColor
+                                        : Color(0xff9cc6e8))),
                           ],
                         ),
+                        onSelected: (value) {
+                          setState(() {
+                            selected = items[index].id;
+                          });
+                          print(selected);
+                        },
+                        selected: selected == items[index].id,
                       ),
                     );
                   }

@@ -1,5 +1,4 @@
 import 'package:bold_app/src/utilities/constants.dart';
-import 'package:bold_app/src/widgets/buttons_selected.dart';
 import 'package:flutter/material.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -212,21 +211,6 @@ class _RegisterFormState extends State<RegisterForm> {
                         },
                         selected: selected.contains('Trial'),
                       ),
-                      // ButtonTheme(
-                      //   minWidth: 340.0,
-                      //   height: 60.0,
-                      //   child: RaisedButton(
-                      //     elevation: 6,
-                      //     textColor: Colors.black,
-                      //     color: primaryColor,
-                      //     padding: EdgeInsets.all(8.0),
-                      //     onPressed: () {},
-                      //     child:
-                      //         Text('7 Day Free Trial', style: kSingTextStyle),
-                      //     shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(10.0)),
-                      //   ),
-                      // ),
                     ],
                   ),
                   SizedBox(

@@ -256,7 +256,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                               child: TextField(
                                 decoration: InputDecoration(
                                   hintText: 'Guatemala',
-                                  filled: true,
+                                  contentPadding: EdgeInsets.all(12.0),
                                   border: InputBorder.none,
                                 ),
                               )),
@@ -280,6 +280,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                   Row(
                     children: <Widget>[
                       ChoiceChip(
+                        elevation: 3,
                         selectedColor: Color(0xff43444c),
                         backgroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(
@@ -294,14 +295,15 @@ class _RegisterForm2State extends State<RegisterForm2> {
                         ),
                         onSelected: (value) {
                           setState(() {
-                            selected = 'female';
+                            selected = '1';
                           });
                           print(selected);
                         },
-                        selected: selected.contains('female'),
+                        selected: selected.contains('1'),
                       ),
                       SizedBox(width: 10.0),
                       ChoiceChip(
+                        elevation: 3,
                         selectedColor: Color(0xff43444c),
                         backgroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(
@@ -316,11 +318,11 @@ class _RegisterForm2State extends State<RegisterForm2> {
                         ),
                         onSelected: (value) {
                           setState(() {
-                            selected = 'male';
+                            selected = '2';
                           });
                           print(selected);
                         },
-                        selected: selected.contains('male'),
+                        selected: selected.contains('2'),
                       ),
                     ],
                   ),
