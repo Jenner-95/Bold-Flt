@@ -1,7 +1,6 @@
 import 'package:bold_app/src/utilities/constants.dart';
 import 'package:bold_app/src/widgets/buttons_selected.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_select/smart_select.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -11,6 +10,7 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   bool _obscureText = false;
   bool _agreedToTOS = false;
+  String selected = '';
 
   void _setAgreedToTOS(bool newValue) {
     setState(() {
@@ -78,102 +78,155 @@ class _RegisterFormState extends State<RegisterForm> {
               Text('Select a Plan', style: kSingTextStyle),
               const SizedBox(height: 26.0),
               Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Wrap(
-                    spacing: 20.0,
-                    direction: Axis.horizontal,
-                    children: <Widget>[
-                      ButtonWidget(),
-
-                      // ButtonTheme(
-                      //   shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(10.0)),
-                      //   minWidth: 100.0,
-                      //   height: 100.0,
-                      //   child: RaisedButton(
-                      //     onPressed: () {},
-                      //     color: Color(0xff1a1a1b),
-                      //     child: Text(
-                      //       'Free',
-                      //       style: TextStyle(
-                      //         fontFamily: 'Avenir Bold',
-                      //         color: Colors.white,
-                      //         fontSize: 20.0,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // ButtonTheme(
-                      //   shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(10.0)),
-                      //   minWidth: 100.0,
-                      //   height: 100,
-                      //   child: RaisedButton(
-                      //     onPressed: () {},
-                      //     color: Color(0xff9cc6e8),
-                      //     child: RichText(
-                      //         textAlign: TextAlign.left,
-                      //         text: TextSpan(
-                      //             style: TextStyle(
-                      //               fontFamily: 'Avenir Bold',
-                      //               fontSize: 20.0,
-                      //               color: Colors.white,
-                      //             ),
-                      //             children: <TextSpan>[
-                      //               TextSpan(text: 'Go\n'),
-                      //               TextSpan(text: 'Pro       ')
-                      //             ])),
-                      //   ),
-                      // ),
-                      // ButtonTheme(
-                      //   shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(10.0)),
-                      //   minWidth: 100.0,
-                      //   height: 100.0,
-                      //   child: RaisedButton(
-                      //     onPressed: () {},
-                      //     color: Color(0xff43444c),
-                      //     child: RichText(
-                      //         text: TextSpan(
-                      //             style: TextStyle(
-                      //               fontFamily: 'Avenir Bold',
-                      //               fontSize: 20.0,
-                      //               color: Colors.white,
-                      //             ),
-                      //             children: <TextSpan>[
-                      //           TextSpan(text: 'Full\n'),
-                      //           TextSpan(text: 'Fitness')
-                      //         ])),
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ],
-              ),
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    ChoiceChip(
+                      selectedColor: Color(0xffcaffbf),
+                      backgroundColor: Color(0xff1a1a1b),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 38.0, horizontal: 25.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      label: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Free',
+                            style: TextStyle(
+                              fontFamily: 'Avenir Bold',
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      onSelected: (value) {
+                        setState(() {
+                          selected = 'Free';
+                        });
+                        print(selected);
+                      },
+                      selected: selected.contains('Free'),
+                    ),
+                    ChoiceChip(
+                      selectedColor: Color(0xffcaffbf),
+                      backgroundColor: Color(0xff9cc6e8),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 25.0, horizontal: 30.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      label: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Go',
+                            style: TextStyle(
+                              fontFamily: 'Avenir Bold',
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            'Pro',
+                            style: TextStyle(
+                              fontFamily: 'Avenir Bold',
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      onSelected: (value) {
+                        setState(() {
+                          selected = 'Go Pro';
+                        });
+                        print(selected);
+                      },
+                      selected: selected.contains('Go Pro'),
+                    ),
+                    ChoiceChip(
+                      selectedColor: Color(0xffcaffbf),
+                      backgroundColor: Color(0xff43444c),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 25.0, horizontal: 10.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      label: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Full',
+                            style: TextStyle(
+                              fontFamily: 'Avenir Bold',
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            'Fitness',
+                            style: TextStyle(
+                              fontFamily: 'Avenir Bold',
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      onSelected: (value) {
+                        setState(() {
+                          selected = 'Full Fitness';
+                        });
+                        print(selected);
+                      },
+                      selected: selected.contains('Full Fitness'),
+                    ),
+                  ]),
               SizedBox(height: 20.0),
               Column(
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      ButtonTheme(
-                        minWidth: 340.0,
-                        height: 60.0,
-                        child: RaisedButton(
-                          elevation: 6,
-                          textColor: Colors.black,
-                          color: primaryColor,
-                          padding: EdgeInsets.all(8.0),
-                          onPressed: () {},
-                          child:
-                              Text('7 Day Free Trial', style: kSingTextStyle),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
+                      ChoiceChip(
+                        selectedColor: Color(0xffcaffbf),
+                        backgroundColor: primaryColor,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 25.0, horizontal: 110.0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        label: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              '7 Day Free Trial',
+                              style: kSingTextStyle,
+                            ),
+                          ],
                         ),
+                        onSelected: (value) {
+                          setState(() {
+                            selected = 'Trial';
+                          });
+                          print(selected);
+                        },
+                        selected: selected.contains('Trial'),
                       ),
+                      // ButtonTheme(
+                      //   minWidth: 340.0,
+                      //   height: 60.0,
+                      //   child: RaisedButton(
+                      //     elevation: 6,
+                      //     textColor: Colors.black,
+                      //     color: primaryColor,
+                      //     padding: EdgeInsets.all(8.0),
+                      //     onPressed: () {},
+                      //     child:
+                      //         Text('7 Day Free Trial', style: kSingTextStyle),
+                      //     shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(10.0)),
+                      //   ),
+                      // ),
                     ],
                   ),
                   SizedBox(

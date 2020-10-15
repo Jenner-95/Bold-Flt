@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         routes: {
           'splash_screen': (BuildContext context) => SplashScreen(),
           'sign_in': (BuildContext context) => SignIn(),
-          'register': (BuildContext context) => ButtonWidget(),
+          'register': (BuildContext context) => RegisterForm(),
           'register_two': (BuildContext context) => RegisterForm2(),
           'register_three': (BuildContext context) => RegisterForm3(),
           'tabbar': (BuildContext context) => TabsPage(),

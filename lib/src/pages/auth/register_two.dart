@@ -11,6 +11,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
   String _dropDownButtonValue = 'MM';
   String _dropDownButtonValue2 = 'DD';
   String _dropDownButtonValue3 = 'YYYY';
+  String selected = '';
 
   @override
   Widget build(BuildContext context) {
@@ -277,61 +278,49 @@ class _RegisterForm2State extends State<RegisterForm2> {
                   ),
                   SizedBox(height: 10.0),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Wrap(
-                        direction: Axis.horizontal,
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.white,
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                      color: Colors.black26,
-                                      blurRadius: 5.0,
-                                      spreadRadius: 2.0,
-                                      offset: Offset(3.0, 3.0))
-                                ]),
-                            child: ButtonTheme(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              minWidth: 50.0,
-                              height: 50.0,
-                              child: RaisedButton(
-                                onPressed: () {},
-                                color: Colors.white,
-                                child: SvgPicture.asset(
-                                    'assets/images/femaleicon.svg'),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10.0),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.white,
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                      color: Colors.black26,
-                                      blurRadius: 5.0,
-                                      spreadRadius: 2.0,
-                                      offset: Offset(3.0, 3.0))
-                                ]),
-                            child: ButtonTheme(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              minWidth: 50.0,
-                              height: 50.0,
-                              child: RaisedButton(
-                                onPressed: () {},
-                                color: Colors.white,
-                                child: SvgPicture.asset(
-                                    'assets/images/maleicon.svg'),
-                              ),
-                            ),
-                          ),
-                        ],
+                      ChoiceChip(
+                        selectedColor: Color(0xff43444c),
+                        backgroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15.0, horizontal: 12.0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        label: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SvgPicture.asset('assets/images/femaleicon.svg'),
+                          ],
+                        ),
+                        onSelected: (value) {
+                          setState(() {
+                            selected = 'female';
+                          });
+                          print(selected);
+                        },
+                        selected: selected.contains('female'),
+                      ),
+                      SizedBox(width: 10.0),
+                      ChoiceChip(
+                        selectedColor: Color(0xff43444c),
+                        backgroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15.0, horizontal: 10.0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        label: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SvgPicture.asset('assets/images/maleicon.svg'),
+                          ],
+                        ),
+                        onSelected: (value) {
+                          setState(() {
+                            selected = 'male';
+                          });
+                          print(selected);
+                        },
+                        selected: selected.contains('male'),
                       ),
                     ],
                   ),
