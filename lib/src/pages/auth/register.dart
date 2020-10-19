@@ -1,27 +1,24 @@
 import 'package:bold_app/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
+PageController controller = new PageController();
+
 class RegisterForm extends StatefulWidget {
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  bool _obscureText = false;
-  bool _agreedToTOS = false;
-  String selected = '';
+  final keyForm = GlobalKey<FormState>();
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
-  void _setAgreedToTOS(bool newValue) {
-    setState(() {
-      _agreedToTOS = newValue;
-    });
-  }
-
-  void _toggle() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
+  Duration kDuration = const Duration(milliseconds: 300);
+  static const kCurve = Curves.ease;
+  bool obscureText = true;
+  bool termAndConditions = false;
+  int selected;
 
   @override
   Widget build(BuildContext context) {
@@ -35,42 +32,46 @@ class _RegisterFormState extends State<RegisterForm> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
         child: Form(
+          key: keyForm,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text('Name', style: kSingTextStyle),
               TextFormField(
+                controller: name,
                 validator: (String value) {
-                  if (value.trim().isEmpty) {
-                    return 'Name is required';
-                  }
+                  if (value.isEmpty) return 'Name is required';
+                  return null;
                 },
               ),
               const SizedBox(height: 16.0),
               Text('Email', style: kSingTextStyle),
               TextFormField(
+                controller: email,
                 validator: (String value) {
-                  if (value.trim().isEmpty) {
-                    return 'Email is required';
-                  }
+                  if (value.isEmpty) return 'Email is required';
+                  return null;
                 },
               ),
               const SizedBox(height: 16.0),
               Text('Password', style: kSingTextStyle),
               TextFormField(
+                controller: password,
                 decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
-                  onTap: _toggle,
-                  child: Icon(
-                    _obscureText ? Icons.visibility_off : Icons.visibility,
-                    size: 28,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() => obscureText = !obscureText);
+                    },
+                    icon: Icon(
+                      obscureText ? Icons.visibility : Icons.visibility_off,
+                      size: 28,
+                    ),
                   ),
-                )),
-                obscureText: _obscureText,
+                ),
+                obscureText: obscureText,
                 validator: (String value) {
-                  if (value.trim().isEmpty) {
-                    return 'Password is required';
-                  }
+                  if (value.isEmpty) return 'Password is required';
+                  return null;
                 },
               ),
               const SizedBox(height: 50.0),
@@ -102,11 +103,11 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       onSelected: (value) {
                         setState(() {
-                          selected = 'Free';
+                          selected = 1;
                         });
                         print(selected);
                       },
-                      selected: selected.contains('Free'),
+                      selected: selected == 1,
                     ),
                     ChoiceChip(
                       selectedColor: Color(0xffcaffbf),
@@ -138,11 +139,11 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       onSelected: (value) {
                         setState(() {
-                          selected = 'Go Pro';
+                          selected = 2;
                         });
                         print(selected);
                       },
-                      selected: selected.contains('Go Pro'),
+                      selected: selected == 2,
                     ),
                     ChoiceChip(
                       selectedColor: Color(0xffcaffbf),
@@ -174,11 +175,11 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       onSelected: (value) {
                         setState(() {
-                          selected = 'Full Fitness';
+                          selected = 3;
                         });
                         print(selected);
                       },
-                      selected: selected.contains('Full Fitness'),
+                      selected: selected == 3,
                     ),
                   ]),
               SizedBox(height: 20.0),
@@ -205,11 +206,11 @@ class _RegisterFormState extends State<RegisterForm> {
                         ),
                         onSelected: (value) {
                           setState(() {
-                            selected = 'Trial';
+                            selected = 4;
                           });
                           print(selected);
                         },
-                        selected: selected.contains('Trial'),
+                        selected: selected == 4,
                       ),
                     ],
                   ),
@@ -225,14 +226,16 @@ class _RegisterFormState extends State<RegisterForm> {
                         child: Column(
                           children: <Widget>[
                             Checkbox(
-                              value: _agreedToTOS,
-                              onChanged: _setAgreedToTOS,
+                              value: termAndConditions,
+                              onChanged: (value) {
+                                setState(() => termAndConditions = value);
+                              },
                             ),
                           ],
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => _setAgreedToTOS(!_agreedToTOS),
+                        onTap: () {},
                         child: RichText(
                             text: TextSpan(
                                 style: TextStyle(
@@ -262,7 +265,13 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, 'register_two'),
+        onPressed: () {
+          if (keyForm.currentState.validate() &&
+              selected != null &&
+              termAndConditions == true) {
+            controller.nextPage(duration: kDuration, curve: kCurve);
+          }
+        },
         child: Icon(
           Icons.arrow_forward,
           color: Colors.black,
