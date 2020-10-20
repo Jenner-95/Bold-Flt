@@ -1,5 +1,6 @@
 import 'package:bold_app/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 PageController controller = new PageController();
 
@@ -18,7 +19,17 @@ class _RegisterFormState extends State<RegisterForm> {
   static const kCurve = Curves.ease;
   bool obscureText = true;
   bool termAndConditions = false;
-  int selected;
+
+  String value_name = '';
+  String value_email = '';
+  String value_password = '';
+
+//Shared Preferences
+  String selected = '';
+  String names = '';
+  String emails = '';
+  String passwords = '';
+  String value_select = '';
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +50,11 @@ class _RegisterFormState extends State<RegisterForm> {
               Text('Name', style: kSingTextStyle),
               TextFormField(
                 controller: name,
+                onChanged: (value) {
+                  setState(() {
+                    value_name = value;
+                  });
+                },
                 validator: (String value) {
                   if (value.isEmpty) return 'Name is required';
                   return null;
@@ -48,6 +64,11 @@ class _RegisterFormState extends State<RegisterForm> {
               Text('Email', style: kSingTextStyle),
               TextFormField(
                 controller: email,
+                onChanged: (value) {
+                  setState(() {
+                    value_email = value;
+                  });
+                },
                 validator: (String value) {
                   if (value.isEmpty) return 'Email is required';
                   return null;
@@ -57,6 +78,11 @@ class _RegisterFormState extends State<RegisterForm> {
               Text('Password', style: kSingTextStyle),
               TextFormField(
                 controller: password,
+                onChanged: (value) {
+                  setState(() {
+                    value_password = value;
+                  });
+                },
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -103,11 +129,11 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       onSelected: (value) {
                         setState(() {
-                          selected = 1;
+                          selected = 'Free';
                         });
                         print(selected);
                       },
-                      selected: selected == 1,
+                      selected: selected.contains('Free'),
                     ),
                     ChoiceChip(
                       selectedColor: Color(0xffcaffbf),
@@ -139,11 +165,11 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       onSelected: (value) {
                         setState(() {
-                          selected = 2;
+                          selected = 'Pro';
                         });
                         print(selected);
                       },
-                      selected: selected == 2,
+                      selected: selected.contains('Pro'),
                     ),
                     ChoiceChip(
                       selectedColor: Color(0xffcaffbf),
@@ -175,11 +201,11 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       onSelected: (value) {
                         setState(() {
-                          selected = 3;
+                          selected = 'Full';
                         });
                         print(selected);
                       },
-                      selected: selected == 3,
+                      selected: selected.contains('Full'),
                     ),
                   ]),
               SizedBox(height: 20.0),
@@ -206,11 +232,11 @@ class _RegisterFormState extends State<RegisterForm> {
                         ),
                         onSelected: (value) {
                           setState(() {
-                            selected = 4;
+                            selected = 'Trial';
                           });
                           print(selected);
                         },
-                        selected: selected == 4,
+                        selected: selected.contains('Trial'),
                       ),
                     ],
                   ),
@@ -265,7 +291,14 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+
+          prefs.setString('names', value_name);
+          prefs.setString('emails', value_email);
+          prefs.setString('passwords', value_password);
+          prefs.setString('selected', selected);
+
           if (keyForm.currentState.validate() &&
               selected != null &&
               termAndConditions == true) {

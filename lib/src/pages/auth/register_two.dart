@@ -1,6 +1,7 @@
 import 'package:bold_app/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterForm2 extends StatefulWidget {
   @override
@@ -12,7 +13,105 @@ class _RegisterForm2State extends State<RegisterForm2> {
   String _dropDownButtonValue2 = 'DD';
   String _dropDownButtonValue3 = 'YYYY';
   String selected = '';
+  var _selectedValue;
+  String dropdownValue = 'Masculino';
+  String gender = '';
 
+  List<String> days1 = <String>[
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '27',
+    '28',
+    '29',
+    '30',
+  ];
+  List<String> days2 = <String>[
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '27',
+    '28',
+    '29',
+    '30',
+    '31'
+  ];
+  List<String> days3 = <String>[
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '27',
+    '28',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,16 +150,6 @@ class _RegisterForm2State extends State<RegisterForm2> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      // CircularProfileAvatar(
-                      //   'https://www.shareicon.net/data/256x256/2017/02/15/878685_user_512x512.png',
-                      //   radius: 40,
-                      //   borderWidth: 5,
-                      //   borderColor: Colors.yellowAccent,
-                      //   elevation: 1.0,
-                      //   cacheImage: true,
-                      //   onTap: () {},
-                      //   showInitialTextAbovePicture: true,
-                      // ),
                       Padding(
                         padding: EdgeInsets.only(top: 40, left: 40),
                         child: ClipOval(
@@ -122,29 +211,51 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                   spreadRadius: 2.0,
                                   offset: Offset(3.0, 3.0))
                             ]),
-                        child: DropdownButtonHideUnderline(
-                          child: ButtonTheme(
-                            alignedDropdown: true,
-                            child: DropdownButton(
-                              isExpanded: true,
-                              hint: Text(
-                                'MM',
-                              ),
-                              items: <String>['01', '02', '03']
-                                  .map((String val) => DropdownMenuItem<String>(
-                                        value: val,
-                                        child: Text(val),
-                                      ))
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _dropDownButtonValue = value;
-                                });
-                              },
-                              style: TextStyle(color: Colors.grey),
-                              iconEnabledColor: primaryColor,
-                            ),
+                        child: DropdownButtonFormField<String>(
+                          isExpanded: true,
+                          icon:
+                              Icon(Icons.arrow_drop_down, color: primaryColor),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(5.0),
                           ),
+                          value: _selectedValue,
+                          hint: Text(
+                            'MM',
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropdownValue = newValue;
+                              gender = dropdownValue;
+                              print('Este es el gender $gender');
+                            });
+                          },
+                          validator: (String value) {
+                            if (value == null) {
+                              return 'Seleccione su género';
+                            }
+                            return null;
+                          },
+                          items: <String>[
+                            '01',
+                            '02',
+                            '03',
+                            '04',
+                            '05',
+                            '06',
+                            '07',
+                            '08',
+                            '09',
+                            '10',
+                            '11',
+                            '12'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
                       Container(
@@ -159,30 +270,67 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                   spreadRadius: 2.0,
                                   offset: Offset(3.0, 3.0))
                             ]),
-                        child: DropdownButtonHideUnderline(
-                          child: ButtonTheme(
-                            alignedDropdown: true,
-                            child: DropdownButton(
-                              isExpanded: true,
-                              hint: Text(
-                                'DD',
-                              ),
-                              items: <String>['01', '02', '03']
-                                  .map((String val) => DropdownMenuItem<String>(
-                                        value: val,
-                                        child: Text(val),
-                                      ))
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _dropDownButtonValue2 = value;
-                                });
-                              },
-                              style: TextStyle(color: Colors.grey),
-                              iconEnabledColor: primaryColor,
+                        child: DropdownButtonFormField<String>(
+                            isExpanded: true,
+                            icon: Icon(Icons.arrow_drop_down,
+                                color: primaryColor),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(5.0),
                             ),
-                          ),
-                        ),
+                            value: _selectedValue,
+                            hint: Text(
+                              'DD',
+                            ),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValue = newValue;
+                                gender = dropdownValue;
+                              });
+                            },
+                            validator: (String value) {
+                              if (value == null) {
+                                return 'Seleccione su género';
+                              }
+                              return null;
+                            },
+                            items: gender == '04' ||
+                                    gender == '06' ||
+                                    gender == '09' ||
+                                    gender == '11'
+                                ? days1.map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                      ),
+                                    );
+                                  }).toList()
+                                : gender == '01' ||
+                                        gender == '03' ||
+                                        gender == '05' ||
+                                        gender == '07' ||
+                                        gender == '08' ||
+                                        gender == '10' ||
+                                        gender == '12'
+                                    ? days2.map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                          ),
+                                        );
+                                      }).toList()
+                                    : days3.map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                          ),
+                                        );
+                                      }).toList()),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.4,
@@ -196,29 +344,52 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                   spreadRadius: 2.0,
                                   offset: Offset(3.0, 3.0))
                             ]),
-                        child: DropdownButtonHideUnderline(
-                          child: ButtonTheme(
-                            alignedDropdown: true,
-                            child: DropdownButton(
-                              isExpanded: true,
-                              hint: Text(
-                                'YYYY',
-                              ),
-                              items: <String>['2019', '2020', '2021']
-                                  .map((String val) => DropdownMenuItem<String>(
-                                        value: val,
-                                        child: Text(val),
-                                      ))
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _dropDownButtonValue3 = value;
-                                });
-                              },
-                              style: TextStyle(color: Colors.grey),
-                              iconEnabledColor: primaryColor,
-                            ),
+                        child: DropdownButtonFormField<String>(
+                          isExpanded: true,
+                          icon:
+                              Icon(Icons.arrow_drop_down, color: primaryColor),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(5.0),
                           ),
+                          value: _selectedValue,
+                          hint: Text(
+                            'YYYY',
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropdownValue = newValue;
+                              gender = dropdownValue;
+                              print(dropdownValue);
+                              print(gender);
+                            });
+                          },
+                          validator: (String value) {
+                            if (value == null) {
+                              return 'Seleccione su género';
+                            }
+                            return null;
+                          },
+                          items: <String>[
+                            '01',
+                            '02',
+                            '03',
+                            '04',
+                            '05',
+                            '06',
+                            '07',
+                            '08',
+                            '09',
+                            '10',
+                            '11',
+                            '12'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
                     ],
@@ -445,8 +616,17 @@ class _RegisterForm2State extends State<RegisterForm2> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, 'register_three');
+        onPressed: () async {
+          SharedPreferences sharedPreferences =
+              await SharedPreferences.getInstance();
+          String name = sharedPreferences.getString('names');
+          String email = sharedPreferences.getString('emails');
+          String password = sharedPreferences.getString('passwords');
+          String plan = sharedPreferences.getString('selected');
+          print(name);
+          print(email);
+          print(password);
+          print(plan);
         },
         child: Icon(
           Icons.arrow_forward,
