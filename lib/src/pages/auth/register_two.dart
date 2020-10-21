@@ -4,15 +4,40 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterForm2 extends StatefulWidget {
+  final PageController controller;
+
+  const RegisterForm2({Key key, @required this.controller}) : super(key: key);
+
   @override
   _RegisterForm2State createState() => _RegisterForm2State();
 }
 
 class _RegisterForm2State extends State<RegisterForm2> {
-  String _dropDownButtonValue = 'MM';
-  String _dropDownButtonValue2 = 'DD';
-  String _dropDownButtonValue3 = 'YYYY';
-  String selected = '';
+  final keyForm = GlobalKey<FormState>();
+  TextEditingController countries = TextEditingController();
+  TextEditingController talls = TextEditingController();
+  TextEditingController weights = TextEditingController();
+
+  String value_month = '';
+  String value_day = '';
+  String value_year = '';
+  String value_country = '';
+  int value_gender;
+  int value_tall;
+  int value_weight;
+
+  //Shared Preferences
+  String month = '';
+  String day = '';
+  String year = '';
+  String country = '';
+  int gender_select;
+  int tall;
+  int weight;
+
+  Duration kDuration = const Duration(milliseconds: 300);
+  static const kCurve = Curves.ease;
+  int selected;
   var _selectedValue;
   String dropdownValue = 'Masculino';
   String gender = '';
@@ -124,6 +149,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
         child: Form(
+          key: keyForm,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -424,7 +450,18 @@ class _RegisterForm2State extends State<RegisterForm2> {
                         child: DropdownButtonHideUnderline(
                           child: ButtonTheme(
                               alignedDropdown: true,
-                              child: TextField(
+                              child: TextFormField(
+                                controller: countries,
+                                onChanged: (value) {
+                                  setState(() {
+                                    value_country = value;
+                                  });
+                                },
+                                validator: (String value) {
+                                  if (value.isEmpty)
+                                    return 'Country is required';
+                                  return null;
+                                },
                                 decoration: InputDecoration(
                                   hintText: 'Guatemala',
                                   contentPadding: EdgeInsets.all(12.0),
@@ -466,11 +503,11 @@ class _RegisterForm2State extends State<RegisterForm2> {
                         ),
                         onSelected: (value) {
                           setState(() {
-                            selected = '1';
+                            selected = 1;
                           });
                           print(selected);
                         },
-                        selected: selected.contains('1'),
+                        selected: selected == 1,
                       ),
                       SizedBox(width: 10.0),
                       ChoiceChip(
@@ -489,11 +526,11 @@ class _RegisterForm2State extends State<RegisterForm2> {
                         ),
                         onSelected: (value) {
                           setState(() {
-                            selected = '2';
+                            selected = 2;
                           });
                           print(selected);
                         },
-                        selected: selected.contains('2'),
+                        selected: selected == 2,
                       ),
                     ],
                   ),
@@ -529,28 +566,25 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                   ]),
                               child: DropdownButtonHideUnderline(
                                 child: ButtonTheme(
-                                  alignedDropdown: true,
-                                  child: DropdownButton(
-                                    isExpanded: true,
-                                    hint: Text(
-                                      'cm',
-                                    ),
-                                    items: <String>['1', '2', '3']
-                                        .map((String val) =>
-                                            DropdownMenuItem<String>(
-                                              value: val,
-                                              child: Text(val),
-                                            ))
-                                        .toList(),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _dropDownButtonValue3 = value;
-                                      });
-                                    },
-                                    style: TextStyle(color: Colors.grey),
-                                    iconEnabledColor: primaryColor,
-                                  ),
-                                ),
+                                    alignedDropdown: true,
+                                    child: TextFormField(
+                                      controller: talls,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          value_tall = value as int;
+                                        });
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: 'cm',
+                                        contentPadding: EdgeInsets.all(12.0),
+                                        border: InputBorder.none,
+                                      ),
+                                      validator: (String value) {
+                                        if (value.isEmpty)
+                                          return 'Tall is required';
+                                        return null;
+                                      },
+                                    )),
                               ),
                             ),
                           ],
@@ -580,28 +614,25 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                   ]),
                               child: DropdownButtonHideUnderline(
                                 child: ButtonTheme(
-                                  alignedDropdown: true,
-                                  child: DropdownButton(
-                                    isExpanded: true,
-                                    hint: Text(
-                                      'lbs',
-                                    ),
-                                    items: <String>['1', '2', '3']
-                                        .map((String val) =>
-                                            DropdownMenuItem<String>(
-                                              value: val,
-                                              child: Text(val),
-                                            ))
-                                        .toList(),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _dropDownButtonValue3 = value;
-                                      });
-                                    },
-                                    style: TextStyle(color: Colors.grey),
-                                    iconEnabledColor: primaryColor,
-                                  ),
-                                ),
+                                    alignedDropdown: true,
+                                    child: TextFormField(
+                                      controller: weights,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          value_weight = value as int;
+                                        });
+                                      },
+                                      validator: (String value) {
+                                        if (value.isEmpty)
+                                          return 'Weight is required';
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: 'lbs',
+                                        contentPadding: EdgeInsets.all(12.0),
+                                        border: InputBorder.none,
+                                      ),
+                                    )),
                               ),
                             ),
                           ],
@@ -619,6 +650,15 @@ class _RegisterForm2State extends State<RegisterForm2> {
         onPressed: () async {
           SharedPreferences sharedPreferences =
               await SharedPreferences.getInstance();
+
+          sharedPreferences.setString('month', value_month);
+          sharedPreferences.setString('day', value_day);
+          sharedPreferences.setString('year', value_year);
+          sharedPreferences.setString('country', value_country);
+          sharedPreferences.setInt('gender_select', selected);
+          sharedPreferences.setInt('tall', tall);
+          sharedPreferences.setInt('weight', weight);
+
           String name = sharedPreferences.getString('names');
           String email = sharedPreferences.getString('emails');
           String password = sharedPreferences.getString('passwords');
@@ -627,6 +667,9 @@ class _RegisterForm2State extends State<RegisterForm2> {
           print(email);
           print(password);
           print(plan);
+          if (keyForm.currentState.validate() && selected != null) {
+            widget.controller.nextPage(duration: kDuration, curve: kCurve);
+          }
         },
         child: Icon(
           Icons.arrow_forward,

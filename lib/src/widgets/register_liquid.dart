@@ -37,6 +37,8 @@ class _SamplePageState extends State<SamplePage> {
 
 List<Widget> samplePages = [
   RegisterForm(),
-  RegisterForm2(),
+  RegisterForm2(
+    controller: controller,
+  ),
   RegisterForm3(),
 ];
