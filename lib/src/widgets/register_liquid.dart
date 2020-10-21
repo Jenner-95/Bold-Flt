@@ -40,5 +40,7 @@ List<Widget> samplePages = [
   RegisterForm2(
     controller: controller,
   ),
-  RegisterForm3(),
+  RegisterForm3(
+    controller: controller,
+  ),
 ];

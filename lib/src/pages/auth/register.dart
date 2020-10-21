@@ -25,11 +25,10 @@ class _RegisterFormState extends State<RegisterForm> {
   String value_password = '';
 
 //Shared Preferences
-  String selected = '';
+  int selected;
   String names = '';
   String emails = '';
   String passwords = '';
-  String value_select = '';
 
   @override
   Widget build(BuildContext context) {
@@ -129,11 +128,11 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       onSelected: (value) {
                         setState(() {
-                          selected = 'Free';
+                          selected = 1;
                         });
                         print(selected);
                       },
-                      selected: selected.contains('Free'),
+                      selected: selected == 1,
                     ),
                     ChoiceChip(
                       selectedColor: Color(0xffcaffbf),
@@ -165,11 +164,11 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       onSelected: (value) {
                         setState(() {
-                          selected = 'Pro';
+                          selected = 2;
                         });
                         print(selected);
                       },
-                      selected: selected.contains('Pro'),
+                      selected: selected == 2,
                     ),
                     ChoiceChip(
                       selectedColor: Color(0xffcaffbf),
@@ -201,11 +200,11 @@ class _RegisterFormState extends State<RegisterForm> {
                       ),
                       onSelected: (value) {
                         setState(() {
-                          selected = 'Full';
+                          selected = 3;
                         });
                         print(selected);
                       },
-                      selected: selected.contains('Full'),
+                      selected: selected == 3,
                     ),
                   ]),
               SizedBox(height: 20.0),
@@ -232,11 +231,11 @@ class _RegisterFormState extends State<RegisterForm> {
                         ),
                         onSelected: (value) {
                           setState(() {
-                            selected = 'Trial';
+                            selected = 4;
                           });
                           print(selected);
                         },
-                        selected: selected.contains('Trial'),
+                        selected: selected == 4,
                       ),
                     ],
                   ),
@@ -297,7 +296,7 @@ class _RegisterFormState extends State<RegisterForm> {
           prefs.setString('names', value_name);
           prefs.setString('emails', value_email);
           prefs.setString('passwords', value_password);
-          prefs.setString('selected', selected);
+          prefs.setInt('selected', selected);
 
           if (keyForm.currentState.validate() &&
               selected != null &&

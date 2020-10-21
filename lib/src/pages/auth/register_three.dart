@@ -1,7 +1,16 @@
-import 'package:bold_app/src/utilities/constants.dart';
+import 'dart:convert';
+
+import 'package:bold_app/src/pages/tabbar/tabbar.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:bold_app/src/utilities/constants.dart';
+import 'package:bold_app/src/utilities/url_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterForm3 extends StatefulWidget {
+  final PageController controller;
+
+  const RegisterForm3({Key key, this.controller}) : super(key: key);
   @override
   _RegisterForm3State createState() => _RegisterForm3State();
 }
@@ -15,6 +24,7 @@ class _RegisterForm3State extends State<RegisterForm3> {
     LisTile(5, "Increase Flexibility", "Improve posture & balance"),
     LisTile(6, "Get Healthy", "Get motivated & Feel better"),
   ];
+  //SharedPreferences
   int selected;
 
   @override
@@ -100,8 +110,63 @@ class _RegisterForm3State extends State<RegisterForm3> {
         // ),
       )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, 'tabbar');
+        onPressed: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          String name = prefs.getString('names');
+          String email = prefs.getString('emails');
+          String password = prefs.getString('passwords');
+          int plan = prefs.getInt('selected');
+          String month = prefs.getString('month');
+          String day = prefs.getString('day');
+          String year = prefs.getString('year');
+          String country = prefs.getString('country');
+          int gender = prefs.getInt('gender_select');
+          String tall = prefs.getString('tall');
+          String weight = prefs.getString('weight');
+          if (selected != null) {
+            http.post(URL.base + 'api/user/', body: {
+              'name': name,
+              "email": email,
+              "password": password,
+              // "plan": plan,
+              "birth_date": '$year-$month-$day',
+              "country": country,
+              // "gender": gender,
+            }).then((response) {
+              Map<String, dynamic> post = json.decode(response.body);
+              print(response.statusCode);
+              print('Post: $post');
+              if (response.statusCode == 200 || response.statusCode == 201) {
+                http.post(URL.base + 'api/user/token/', body: {
+                  'email': email,
+                  'password': password
+                }).then((response) {
+                  Map<String, dynamic> post = json.decode(response.body);
+                  print(post);
+                  print(post['access']);
+                  if (response.statusCode == 200) {
+                    print(response.statusCode);
+                    if (post.containsKey('access')) {
+                      prefs.setString("jwt", post['access']);
+                      prefs.setString("refresh", post['refresh']);
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => TabsPage()),
+                          (Route<dynamic> route) => false);
+                    } else {
+                      print("error");
+                    }
+                  } else {
+                    print("error");
+                  }
+                });
+              } else {
+                print("error");
+              }
+            });
+          } else {
+            print("error");
+          }
         },
         child: Icon(
           Icons.check,

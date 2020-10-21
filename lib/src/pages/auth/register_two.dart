@@ -23,8 +23,8 @@ class _RegisterForm2State extends State<RegisterForm2> {
   String value_year = '';
   String value_country = '';
   int value_gender;
-  int value_tall;
-  int value_weight;
+  String value_tall;
+  String value_weight;
 
   //Shared Preferences
   String month = '';
@@ -32,8 +32,8 @@ class _RegisterForm2State extends State<RegisterForm2> {
   String year = '';
   String country = '';
   int gender_select;
-  int tall;
-  int weight;
+  String tall;
+  String weight;
 
   Duration kDuration = const Duration(milliseconds: 300);
   static const kCurve = Curves.ease;
@@ -251,8 +251,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                           onChanged: (String newValue) {
                             setState(() {
                               dropdownValue = newValue;
-                              gender = dropdownValue;
-                              print('Este es el gender $gender');
+                              value_month = dropdownValue;
                             });
                           },
                           validator: (String value) {
@@ -310,7 +309,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                             onChanged: (String newValue) {
                               setState(() {
                                 dropdownValue = newValue;
-                                gender = dropdownValue;
+                                value_day = dropdownValue;
                               });
                             },
                             validator: (String value) {
@@ -384,9 +383,7 @@ class _RegisterForm2State extends State<RegisterForm2> {
                           onChanged: (String newValue) {
                             setState(() {
                               dropdownValue = newValue;
-                              gender = dropdownValue;
-                              print(dropdownValue);
-                              print(gender);
+                              value_year = dropdownValue;
                             });
                           },
                           validator: (String value) {
@@ -396,18 +393,18 @@ class _RegisterForm2State extends State<RegisterForm2> {
                             return null;
                           },
                           items: <String>[
-                            '01',
-                            '02',
-                            '03',
-                            '04',
-                            '05',
-                            '06',
-                            '07',
-                            '08',
-                            '09',
-                            '10',
-                            '11',
-                            '12'
+                            '1995',
+                            '1996',
+                            '1997',
+                            '1998',
+                            '1999',
+                            '2000',
+                            '2001',
+                            '2002',
+                            '2003',
+                            '2004',
+                            '2005',
+                            '2006'
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
@@ -564,28 +561,26 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                         spreadRadius: 2.0,
                                         offset: Offset(3.0, 3.0))
                                   ]),
-                              child: DropdownButtonHideUnderline(
-                                child: ButtonTheme(
-                                    alignedDropdown: true,
-                                    child: TextFormField(
-                                      controller: talls,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          value_tall = value as int;
-                                        });
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: 'cm',
-                                        contentPadding: EdgeInsets.all(12.0),
-                                        border: InputBorder.none,
-                                      ),
-                                      validator: (String value) {
-                                        if (value.isEmpty)
-                                          return 'Tall is required';
-                                        return null;
-                                      },
-                                    )),
-                              ),
+                              child: ButtonTheme(
+                                  alignedDropdown: true,
+                                  child: TextFormField(
+                                    controller: talls,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        value_tall = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: 'cm',
+                                      contentPadding: EdgeInsets.all(12.0),
+                                      border: InputBorder.none,
+                                    ),
+                                    validator: (String value) {
+                                      if (value.isEmpty)
+                                        return 'Tall is required';
+                                      return null;
+                                    },
+                                  )),
                             ),
                           ],
                         ),
@@ -612,28 +607,28 @@ class _RegisterForm2State extends State<RegisterForm2> {
                                         spreadRadius: 2.0,
                                         offset: Offset(3.0, 3.0))
                                   ]),
-                              child: DropdownButtonHideUnderline(
-                                child: ButtonTheme(
-                                    alignedDropdown: true,
-                                    child: TextFormField(
-                                      controller: weights,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          value_weight = value as int;
-                                        });
-                                      },
-                                      validator: (String value) {
-                                        if (value.isEmpty)
-                                          return 'Weight is required';
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText: 'lbs',
-                                        contentPadding: EdgeInsets.all(12.0),
-                                        border: InputBorder.none,
-                                      ),
-                                    )),
-                              ),
+                              child: ButtonTheme(
+                                  alignedDropdown: true,
+                                  child: TextFormField(
+                                    controller: weights,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        value_weight = value;
+                                        print(value);
+                                        print(value_weight);
+                                      });
+                                    },
+                                    validator: (String value) {
+                                      if (value.isEmpty)
+                                        return 'Weight is required';
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: 'lbs',
+                                      contentPadding: EdgeInsets.all(12.0),
+                                      border: InputBorder.none,
+                                    ),
+                                  )),
                             ),
                           ],
                         )
@@ -656,17 +651,17 @@ class _RegisterForm2State extends State<RegisterForm2> {
           sharedPreferences.setString('year', value_year);
           sharedPreferences.setString('country', value_country);
           sharedPreferences.setInt('gender_select', selected);
-          sharedPreferences.setInt('tall', tall);
-          sharedPreferences.setInt('weight', weight);
+          sharedPreferences.setString('tall', value_tall);
+          sharedPreferences.setString('weight', value_weight);
 
           String name = sharedPreferences.getString('names');
           String email = sharedPreferences.getString('emails');
           String password = sharedPreferences.getString('passwords');
-          String plan = sharedPreferences.getString('selected');
-          print(name);
-          print(email);
-          print(password);
-          print(plan);
+          int plan = sharedPreferences.getInt('selected');
+          // print(name);
+          // print(email);
+          // print(password);
+          // print(plan);
           if (keyForm.currentState.validate() && selected != null) {
             widget.controller.nextPage(duration: kDuration, curve: kCurve);
           }

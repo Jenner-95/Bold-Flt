@@ -1,4 +1,3 @@
-import 'package:bold_app/src/widgets/buttons_selected.dart';
 import 'package:bold_app/src/widgets/register_liquid.dart';
 import 'package:flutter/material.dart';
 import 'package:bold_app/src/bloc/provider.dart';
@@ -12,9 +11,6 @@ import 'package:bold_app/src/pages/profile/profile.dart';
 import 'package:bold_app/src/pages/tabbar/tabbar.dart';
 import 'package:bold_app/src/widgets/list_meals.dart';
 import 'package:bold_app/src/pages/auth/sign_in.dart';
-import 'package:bold_app/src/pages/auth/register.dart';
-import 'package:bold_app/src/pages/auth/register_two.dart';
-import 'package:bold_app/src/pages/auth/register_three.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,8 +39,6 @@ class MyApp extends StatelessWidget {
           'splash_screen': (BuildContext context) => SplashScreen(),
           'sign_in': (BuildContext context) => SignIn(),
           'register': (BuildContext context) => SamplePage(),
-          'register_two': (BuildContext context) => RegisterForm2(),
-          'register_three': (BuildContext context) => RegisterForm3(),
           'tabbar': (BuildContext context) => TabsPage(),
           'home_page': (BuildContext context) => HomePage(),
           'profile_page': (BuildContext context) => ProfilePage(),
