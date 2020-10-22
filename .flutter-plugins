@@ -1,12 +1,12 @@
 # This is a generated file; do not edit or check into version control.
-path_provider=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.18/
-path_provider_linux=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+2/
-path_provider_macos=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+3/
-path_provider_windows=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-0.0.4+1/
-shared_preferences=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.12/
-shared_preferences_linux=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_linux-0.0.2+2/
-shared_preferences_macos=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+10/
-shared_preferences_web=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+7/
-shared_preferences_windows=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-0.0.1+1/
-video_player=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-0.11.0/
-video_player_web=/home/dark/src/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_web-0.1.4/
+path_provider=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.18/
+path_provider_linux=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+2/
+path_provider_macos=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+3/
+path_provider_windows=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-0.0.4+1/
+shared_preferences=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.12/
+shared_preferences_linux=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_linux-0.0.2+2/
+shared_preferences_macos=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+10/
+shared_preferences_web=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+7/
+shared_preferences_windows=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-0.0.1+1/
+video_player=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-0.11.0/
+video_player_web=/Users/kevito10/development/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_web-0.1.4/

@@ -128,27 +128,27 @@ class _RegisterForm3State extends State<RegisterForm3> {
               'name': name,
               "email": email,
               "password": password,
-              // "plan": plan,
+              "plan": plan.toString(),
               "birth_date": '$year-$month-$day',
               "country": country,
-              // "gender": gender,
+              "gender": gender.toString(),
             }).then((response) {
-              Map<String, dynamic> post = json.decode(response.body);
+              Map<String, dynamic> post = jsonDecode(response.body);
               print(response.statusCode);
               print('Post: $post');
+              
               if (response.statusCode == 200 || response.statusCode == 201) {
                 http.post(URL.base + 'api/user/token/', body: {
                   'email': email,
                   'password': password
                 }).then((response) {
-                  Map<String, dynamic> post = json.decode(response.body);
-                  print(post);
-                  print(post['access']);
+                  Map<String, dynamic> post = jsonDecode(response.body);
+                  print('The post $post');
+                  print(post['jwt']);
                   if (response.statusCode == 200) {
                     print(response.statusCode);
-                    if (post.containsKey('access')) {
-                      prefs.setString("jwt", post['access']);
-                      prefs.setString("refresh", post['refresh']);
+                    if (post.containsKey('jwt')) {
+                      prefs.setString("jwt", post['jwt']);
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                               builder: (BuildContext context) => TabsPage()),

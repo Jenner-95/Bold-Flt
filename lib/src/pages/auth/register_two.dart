@@ -227,23 +227,29 @@ class _RegisterForm2State extends State<RegisterForm2> {
                     children: <Widget>[
                       Container(
                         width: MediaQuery.of(context).size.width * 0.2,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white,
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 5.0,
-                                  spreadRadius: 2.0,
-                                  offset: Offset(3.0, 3.0))
-                            ]),
+                        
                         child: DropdownButtonFormField<String>(
-                          isExpanded: true,
-                          icon:
-                              Icon(Icons.arrow_drop_down, color: primaryColor),
+                           elevation: 20,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(5.0),
+                            
+                          contentPadding: EdgeInsets.all(5.0),
+                          enabledBorder: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(15),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Colors.grey),
+                        ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey, width: 2.0
+                            ),
+                            borderRadius: new BorderRadius.circular(15)  
                           ),
+                        ),
+                          isExpanded: true,
+                          icon:  Icon(Icons.arrow_drop_down, color: primaryColor),
                           value: _selectedValue,
                           hint: Text(
                             'MM',
@@ -285,23 +291,28 @@ class _RegisterForm2State extends State<RegisterForm2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.2,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white,
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 5.0,
-                                  spreadRadius: 2.0,
-                                  offset: Offset(3.0, 3.0))
-                            ]),
                         child: DropdownButtonFormField<String>(
-                            isExpanded: true,
-                            icon: Icon(Icons.arrow_drop_down,
-                                color: primaryColor),
+                             elevation: 20,
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(5.0),
+                              
+                            contentPadding: EdgeInsets.all(5.0),
+                            enabledBorder: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(15),
+                              borderSide: BorderSide(color: Colors.grey),
+                          ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey, width: 2.0
+                              ),
+                              borderRadius: new BorderRadius.circular(15)  
                             ),
+                          ),
+                            isExpanded: true,
+                            icon: Icon(Icons.arrow_drop_down,  color: primaryColor),
                             value: _selectedValue,
                             hint: Text(
                               'DD',
@@ -359,23 +370,29 @@ class _RegisterForm2State extends State<RegisterForm2> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.4,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white,
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 5.0,
-                                  spreadRadius: 2.0,
-                                  offset: Offset(3.0, 3.0))
-                            ]),
                         child: DropdownButtonFormField<String>(
+                          elevation: 20,
+                          decoration: InputDecoration(
+                            
+                          contentPadding: EdgeInsets.all(5.0),
+                          enabledBorder: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(15),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Colors.grey),
+                        ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey, width: 2.0
+                            ),
+                            borderRadius: new BorderRadius.circular(15)  
+                          ),
+                        ),
                           isExpanded: true,
                           icon:
                               Icon(Icons.arrow_drop_down, color: primaryColor),
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(5.0),
-                          ),
                           value: _selectedValue,
                           hint: Text(
                             'YYYY',
@@ -658,10 +675,10 @@ class _RegisterForm2State extends State<RegisterForm2> {
           String email = sharedPreferences.getString('emails');
           String password = sharedPreferences.getString('passwords');
           int plan = sharedPreferences.getInt('selected');
-          // print(name);
-          // print(email);
-          // print(password);
-          // print(plan);
+          print(name);
+          print(email);
+          print(password);
+          print(plan);
           if (keyForm.currentState.validate() && selected != null) {
             widget.controller.nextPage(duration: kDuration, curve: kCurve);
           }
